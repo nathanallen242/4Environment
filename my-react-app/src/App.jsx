@@ -38,7 +38,6 @@ function App() {
           latitude: 27.9944024,
           zoom: 6
         }}
-        mapStyle="mapbox://styles/mapbox/satellite-streets-v12"
         polygonData={miamiPolygonData}
     />
     </div>

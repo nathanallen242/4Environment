@@ -33,7 +33,7 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, polygonData }) => 
           source: `polygonSource${index}`,
           layout: {},
           paint: {
-            'fill-color': '#088',
+            'fill-color': '#000000',
             'fill-opacity': 0.8
           }
         });
