@@ -77,9 +77,16 @@ button:focus-visible {
 }
 
 .navbar {
-  background-color: #464646; /* Navbar background color */
+  background-color: #f8f8f8;
+  top: 0;
   height: 80px;
   width: 100vw;
+  z-index: 10;
+  text-align: center;
+  color: black;
+  font-family: "American Typewriter", sans-serif;
+  font-size: 50px;
+  font-weight: 200;
 }
 
 .navbar .brand:hover {
