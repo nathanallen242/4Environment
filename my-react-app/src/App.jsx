@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Map, { Marker, Popup } from './Map';
+import Map from './Map';
 import './App.css';
 import icon from './assets/react.svg';
 
@@ -30,7 +30,7 @@ function App() {
         4Environment
       </div>
       <Map
-        mapboxAccessToken={mapboxAccessToken}
+        mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
         initialViewState={{
           longitude: -81.7602544,
           latitude: 27.9944024,
