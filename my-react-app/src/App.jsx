@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
-import Map, { Marker, Popup } from 'react-map-gl';
+import Map, { Marker, Popup } from './Map';
 import './App.css';
 import icon from './assets/react.svg';
 
 function App() {
-  const [viewport, setViewport] = useState({
-    longitude: -81.7602544,
-    latitude: 27.9944024,
-    zoom: 6
-  });
-  const [coordinates, setCoordinates] = useState({ longitude: -81.7602544, latitude: 27.9944024 });
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const mapboxAccessToken = import.meta.env.VITE_MAPBOX_TOKEN;
+
+  const miamiPolygonData = [
+    [
+      [-80.2002, 25.7877], // NW corner
+      [-80.1875, 25.7877], // NE corner
+      [-80.1875, 25.7735], // SE corner
+      [-80.2002, 25.7735], // SW corner
+      [-80.2002, 25.7877]  // Back to NW corner to close the polygon
+    ],
+    [
+      [-80.1445, 25.8121], // NW corner
+      [-80.1231, 25.8121], // NE corner
+      [-80.1231, 25.7914], // SE corner
+      [-80.1445, 25.7914], // SW corner
+      [-80.1445, 25.8121]  // Back to NW corner to close the polygon
+    ],
+  ];
+  
 
   return (
     <div className='mapbox'>
@@ -21,21 +31,13 @@ function App() {
       </div>
       <Map
         mapboxAccessToken={mapboxAccessToken}
-        {...viewport}
-        onMove={evt => {
-          setViewport(evt.viewState);
-          setCoordinates({ longitude: evt.viewState.longitude.toFixed(4), latitude: evt.viewState.latitude.toFixed(4) });
+        initialViewState={{
+          longitude: -81.7602544,
+          latitude: 27.9944024,
+          zoom: 6
         }}
-        maxBounds={[
-          [-87.6333, 24.5], // Southwest coordinates
-          [-79.8, 31] // Northeast coordinates
-        ]}
-        mapStyle="mapbox://styles/mapbox/satellite-streets-v12"
-      >
-      </Map>
-      <div style={{ position: 'absolute', top: 0, left: 0, margin: '10px', padding: '5px'}}>
-          {`Lon: ${coordinates.longitude}, Lat: ${coordinates.latitude}`}
-        </div>
+        polygonData={miamiPolygonData}
+    />
     </div>
   );
 }
