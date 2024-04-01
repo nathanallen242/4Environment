@@ -1,11 +1,30 @@
 import { useState } from 'react'
-import Map from 'react-map-gl';
+import Map from './Map';
 import './App.css'
 import icon from './assets/react.svg'
 
 const mapboxAccessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 function App() {
+
+  const miamiPolygonData = [
+    [
+      [-80.2002, 25.7877], // NW corner
+      [-80.1875, 25.7877], // NE corner
+      [-80.1875, 25.7735], // SE corner
+      [-80.2002, 25.7735], // SW corner
+      [-80.2002, 25.7877]  // Back to NW corner to close the polygon
+    ],
+    [
+      [-80.1445, 25.8121], // NW corner
+      [-80.1231, 25.8121], // NE corner
+      [-80.1231, 25.7914], // SE corner
+      [-80.1445, 25.7914], // SW corner
+      [-80.1445, 25.8121]  // Back to NW corner to close the polygon
+    ],
+  ];
+  
+
   return (
     <div className='mapbox'>
       <div className='navbar'>
@@ -13,13 +32,14 @@ function App() {
         4Environment
       </div>
       <Map
-      mapboxAccessToken={mapboxAccessToken}
-      initialViewState={{
-        longitude: -81.7602544,
-        latitude: 27.9944024,
-        zoom: 6
-      }}
-      mapStyle="mapbox://styles/mapbox/satellite-streets-v12"
+        mapboxAccessToken={mapboxAccessToken}
+        initialViewState={{
+          longitude: -81.7602544,
+          latitude: 27.9944024,
+          zoom: 6
+        }}
+        mapStyle="mapbox://styles/mapbox/satellite-streets-v12"
+        polygonData={miamiPolygonData}
     />
     </div>
   );
