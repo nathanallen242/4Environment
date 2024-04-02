@@ -23,15 +23,21 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
           });
 
           // Layer for the fill color
-          map.addLayer({
+          map.addLayer(
+            {
             id: 'geojsonFill',
             type: 'fill',
             source: 'polygonData',
             layout: {},
             paint: {
-              'fill-color': '#888888', // Grey fill color
-              'fill-opacity': 0.5,
-            },
+              'fill-color': [
+                'case',
+                ['==', ['get', 'LA1and10'], 1], '#FF0000', // Red if LA1and10 is 1
+                ['==', ['get', 'LA1and10'], 0], '#0000FF', // Blue if LA1and10 is 0
+                '#000000'
+              ],
+              'fill-opacity': 0.4,
+            }            
           });
 
           // Layer for the boundary lines
@@ -41,8 +47,8 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
             source: 'polygonData',
             layout: {},
             paint: {
-              'line-color': '#FF0000', // Red color for lines
-              'line-width': 2,
+              'line-color': '#000000', // Red color for lines
+              'line-width': 0.1,
             },
           });
 
