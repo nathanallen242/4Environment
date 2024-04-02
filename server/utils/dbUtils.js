@@ -1,7 +1,6 @@
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
 import GJV from 'geojson-validation';
-import geojsonVt from 'geojson-vt';
 
 dotenv.config();
 

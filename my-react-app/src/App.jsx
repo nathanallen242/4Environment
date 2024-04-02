@@ -6,17 +6,17 @@ import icon from './assets/react.svg';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 function App() {
-  const [apiData, setApiData] = useState(null);
+  // const [apiData, setApiData] = useState(null);
 
-  useEffect(() => {
-    axios.get('http://localhost:3000/fetch-docs')
-      .then(response => {
-        setApiData(response.data);
-      })
-      .catch(error => {
-        console.error("Failed to fetch API data:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('http://localhost:3000/fetch-docs')
+  //     .then(response => {
+  //       setApiData(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error("Failed to fetch API data:", error);
+  //     });
+  // }, []);
 
   return (
     <div className='mapbox'>
@@ -31,7 +31,6 @@ function App() {
           latitude: 27.9944024,
           zoom: 6
         }}
-        polygonData={apiData}
     />
     </div>
   );

@@ -92,3 +92,16 @@ button:focus-visible {
 .navbar .brand:hover {
   color: #007bff; /* Text color on hover */
 }
+
+/* .mapboxgl-popup {
+  background-color: #f9f9f9; /* Light background for contrast with red */
+  border-radius: 8px;
+  border: 1px solid #FF0000; /* Red border to match the outlines */
+  animation: fadeInAnimation 0.4s ease-out forwards; /* Example fade-in animation */
+}
+
+/* Fade-in animation */
+@keyframes fadeInAnimation {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+} */
