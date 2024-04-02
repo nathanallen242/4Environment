@@ -1,27 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Map from './Map';
 import './App.css';
 import icon from './assets/react.svg';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 function App() {
+  const [apiData, setApiData] = useState(null);
 
-  const miamiPolygonData = [
-    [
-      [-80.2002, 25.7877], // NW corner
-      [-80.1875, 25.7877], // NE corner
-      [-80.1875, 25.7735], // SE corner
-      [-80.2002, 25.7735], // SW corner
-      [-80.2002, 25.7877]  // Back to NW corner to close the polygon
-    ],
-    [
-      [-80.1445, 25.8121], // NW corner
-      [-80.1231, 25.8121], // NE corner
-      [-80.1231, 25.7914], // SE corner
-      [-80.1445, 25.7914], // SW corner
-      [-80.1445, 25.8121]  // Back to NW corner to close the polygon
-    ],
-  ];
-  
+  useEffect(() => {
+    axios.get('http://localhost:3000/fetch-docs')
+      .then(response => {
+        setApiData(response.data);
+      })
+      .catch(error => {
+        console.error("Failed to fetch API data:", error);
+      });
+  }, []);
 
   return (
     <div className='mapbox'>
@@ -36,7 +31,7 @@ function App() {
           latitude: 27.9944024,
           zoom: 6
         }}
-        polygonData={miamiPolygonData}
+        polygonData={apiData}
     />
     </div>
   );

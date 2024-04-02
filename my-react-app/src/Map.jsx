@@ -7,40 +7,33 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, polygonData }) => 
   useEffect(() => {
     mapboxgl.accessToken = mapboxAccessToken;
     const map = new mapboxgl.Map({
-        container: mapContainerRef.current,
-        style: mapStyle,
-        center: [initialViewState.longitude, initialViewState.latitude],
-        zoom: initialViewState.zoom
+      container: mapContainerRef.current,
+      style: mapStyle,
+      center: [initialViewState.longitude, initialViewState.latitude],
+      zoom: initialViewState.zoom,
     });
 
-    map.on('load', () => {
-      // Add each set of polygon data to the map
-      polygonData.forEach((polygonSet, index) => {
-        map.addSource(`polygonSource${index}`, {
+    if (polygonData) {
+      map.on('load', () => {
+        // Assuming 'geoJsonData' is a valid GeoJSON object
+        map.addSource('polygonData', {
           type: 'geojson',
-          data: {
-            type: 'Feature',
-            geometry: {
-              type: 'Polygon',
-              coordinates: [polygonSet] // Assuming each polygon set is an array of coordinates
-            }
-          }
+          data: polygonData,
         });
 
         map.addLayer({
-          id: `polygonLayer${index}`,
+          id: 'geojsonLayer',
           type: 'fill',
-          source: `polygonSource${index}`,
+          source: 'polygonData',
           layout: {},
           paint: {
-            'fill-color': '#000000',
-            'fill-opacity': 0.8
-          }
+            'fill-color': '#888888', // Example fill color
+            'fill-opacity': 0.5, // Example fill opacity
+          },
         });
       });
-    });
+    }
 
-    // Clean up map instance on component unmount
     return () => map.remove();
   }, [mapboxAccessToken, initialViewState, mapStyle, polygonData]);
 

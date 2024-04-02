@@ -1,5 +1,7 @@
 import { MongoClient } from 'mongodb';
 import dotenv from 'dotenv';
+import GJV from 'geojson-validation';
+import geojsonVt from 'geojson-vt';
 
 dotenv.config();
 
@@ -25,14 +27,21 @@ export const fetchDocuments = async () => {
             geometry: doc.geometry // Adjust according to your document structure
         }));
 
-        // Create and return a GeoJSON FeatureCollection object
-        return {
+        const geoJson = {
             type: 'FeatureCollection',
             features: geoJsonFeatures,
         };
+
+        // Validate the GeoJSON structure
+        if (GJV.valid(geoJson)) {
+            return geoJson;
+        } else {
+            console.error("Invalid GeoJSON object");
+            throw new Error("Generated GeoJSON is not valid.");
+        }
     } catch (err) {
         console.error("Error fetching documents:", err);
-        throw err; // Rethrow the error to be handled by the caller
+        throw err;
     } finally {
         await client.close();
     }
