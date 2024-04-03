@@ -77,7 +77,8 @@ button:focus-visible {
 }
 
 .navbar {
-  background-color: #f8f8f8;
+  background-color: rgba(255, 255, 255, 0);
+  position: absolute; 
   top: 0;
   height: 80px;
   width: 100vw;
@@ -88,9 +89,10 @@ button:focus-visible {
   font-family: "American Typewriter", sans-serif;
   font-size: 50px;
   font-weight: 200;
-  gap: 100px;
+  gap: 10px;
   justify-content: center;
   align-items: center;
+  font-weight: 400;
 }
 
 .navbar .brand:hover {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Map from './Map';
 import SearchBox from './Search';
-import icon from './assets/react.svg';
+import icon from './assets/icon.png';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 function App() {
@@ -23,8 +23,7 @@ function App() {
   return (
     <div className='mapbox'>
       <div className='navbar'>
-        {/* <img src={icon} style="width: 40px; height: 40px;"></img> */}
-        4Environment
+        <img src={icon} style={{ width: '40px', height: '40px' }}></img>
         <SearchBox/>
       </div>
       <Map
