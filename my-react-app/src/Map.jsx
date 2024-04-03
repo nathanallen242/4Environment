@@ -32,8 +32,8 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
             paint: {
               'fill-color': [
                 'case',
-                ['==', ['get', 'LA1and10'], 1], '#32CD32', // Red if LA1and10 is 1
-                ['==', ['get', 'LA1and10'], 0], '#FF5733', // Blue if LA1and10 is 0
+                ['==', ['get', 'LA1and10'], 0], '#32CD32', 
+                ['==', ['get', 'LA1and10'], 1], '#FF5733',
                 '#000000'
               ],
               'fill-opacity': 0.2,
