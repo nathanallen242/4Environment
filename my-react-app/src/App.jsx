@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Map from './Map';
 import SearchBox from './Search';
 import icon from './assets/icon.png';
