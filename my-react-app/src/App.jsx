@@ -32,7 +32,7 @@ function App() {
         initialViewState={{
           longitude: -81.7602544,
           latitude: 27.9944024,
-          zoom: 1
+          zoom: 6
         }}
     />
     </div>
