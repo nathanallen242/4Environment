@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Map from './Map';
-import './App.css';
 import SearchBox from './Search';
 import icon from './assets/react.svg';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -33,7 +32,7 @@ function App() {
         initialViewState={{
           longitude: -81.7602544,
           latitude: 27.9944024,
-          zoom: 6
+          zoom: 1
         }}
     />
     </div>
