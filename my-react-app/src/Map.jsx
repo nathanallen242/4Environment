@@ -1,10 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 
-const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
+const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSearchTerm }) => {
+
   const mapContainerRef = useRef(null);
+  const mapRef = useRef(null);
 
   useEffect(() => {
+    
     mapboxgl.accessToken = mapboxAccessToken;
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -12,6 +15,25 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
       center: [initialViewState.longitude, initialViewState.latitude],
       zoom: initialViewState.zoom,
     });
+    
+    mapRef.current = map
+
+    // if (searchTerm) {
+    //   mapboxAccessToken = import.meta.env.VITE_MAPBOX_TOKEN
+    //   fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchTerm)}.json?access_token=${mapboxAccessToken}`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       const [longitude, latitude] = data.features[0].center;
+
+    //       map.flyTo({
+    //         center: [longitude, latitude],
+    //         essential: true, 
+    //         zoom: 10,
+    //       });
+
+    //     })
+    //     .catch(error => console.error('Error geocoding location: ', error));
+    // }
 
     map.on('load', () => {
       fetch('https://nathanallen242.github.io/4Environment/data-collection/data/json/data.geojson')
@@ -73,7 +95,29 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
     });
 
     return () => map.remove();
-  }, [mapboxAccessToken, initialViewState, mapStyle]);
+  }, []);
+
+  const flyToLocation = (longitude, latitude) => {
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: [longitude, latitude],
+        essential: true,
+        zoom: 10,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (searchTerm) {
+      fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchTerm)}.json?access_token=${mapboxAccessToken}`)
+        .then(response => response.json())
+        .then(data => {
+          const [longitude, latitude] = data.features[0].center;
+          flyToLocation(longitude, latitude);
+        })
+        .catch(error => alert('This location does not exist'));
+    }
+  }, [searchTerm, mapboxAccessToken]);
 
 return (
     <>
