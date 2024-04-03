@@ -102,7 +102,7 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
       mapRef.current.flyTo({
         center: [longitude, latitude],
         essential: true,
-        zoom: 10,
+        zoom: 13,
       });
     }
   };
