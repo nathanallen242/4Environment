@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Map from './Map';
 import './App.css';
+import SearchBox from './Search';
 import icon from './assets/react.svg';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -18,11 +19,14 @@ function App() {
   //     });
   // }, []);
 
+  const [searchTerm, setSearchTerm] = useState('')
+
   return (
     <div className='mapbox'>
       <div className='navbar'>
         {/* <img src={icon} style="width: 40px; height: 40px;"></img> */}
         4Environment
+        <SearchBox/>
       </div>
       <Map
         mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
