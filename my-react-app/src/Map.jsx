@@ -60,8 +60,13 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
             // Ensure the popup is positioned at the click coordinates
             new mapboxgl.Popup()
               .setLngLat([coordinates.lng, coordinates.lat]) // Set the popup at the click location
-              .setHTML(`<p>Details: ${JSON.stringify(properties)}</p>`) // Customize based on what you want to show
-              .addTo(map);
+              .setHTML(`<div style="max-width: 180px; word-wrap: break-word; color: black; text-align: left;">
+              <p><strong>County Name:</strong> ${properties.County}</p>
+              <p><strong>Low Income:</strong> ${properties.LowIncomeTracts ? 'Yes' : 'No'}</p>
+              <p><strong>Poverty Rate:</strong> ${properties.PovertyRate}%</p>
+              <p><strong>Median Family Income:</strong> $${properties.MedianFamilyIncome}</p>
+            </div>`)
+                .addTo(map);
           });          
         })
         .catch(error => console.error('Error loading the GeoJSON data: ', error));
@@ -70,7 +75,17 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
     return () => map.remove();
   }, [mapboxAccessToken, initialViewState, mapStyle]);
 
-  return <div ref={mapContainerRef} style={{ width: '100%', height: '100vh' }} />;
-};
+return (
+    <>
+      <style>
+        {`
+          .mapboxgl-popup-close-button {
+            color: #000; /* Custom color for the close button */
+          }
+        `}
+      </style>
+      <div ref={mapContainerRef} style={{ width: '100%', height: '100vh' }} />
+    </>
+  );};
 
 export default Map;
