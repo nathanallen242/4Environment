@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 
-
-const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSearchTerm, dataSourceUrl }) => {
+const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSearchTerm }) => {
 
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
@@ -19,9 +18,25 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
     
     mapRef.current = map
 
+    // if (searchTerm) {
+    //   mapboxAccessToken = import.meta.env.VITE_MAPBOX_TOKEN
+    //   fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchTerm)}.json?access_token=${mapboxAccessToken}`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       const [longitude, latitude] = data.features[0].center;
+
+    //       map.flyTo({
+    //         center: [longitude, latitude],
+    //         essential: true, 
+    //         zoom: 10,
+    //       });
+
+    //     })
+    //     .catch(error => console.error('Error geocoding location: ', error));
+    // }
+
     map.on('load', () => {
-      // Use the API_URL environment variable to fetch the GeoJSON data
-      fetch(dataSourceUrl)
+      fetch('https://nathanallen242.github.io/4Environment/data-collection/data/json/data.geojson')
         .then(response => response.json())
         .then(data => {
           map.addSource('polygonData', {
@@ -30,7 +45,8 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
           });
 
           // Layer for the fill color
-          map.addLayer({
+          map.addLayer(
+            {
             id: 'geojsonFill',
             type: 'fill',
             source: 'polygonData',
@@ -53,7 +69,7 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
             source: 'polygonData',
             layout: {},
             paint: {
-              'line-color': '#000000', // Color for lines
+              'line-color': '#000000', // Red color for lines
               'line-width': 0.1,
             },
           });
@@ -79,8 +95,7 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
     });
 
     return () => map.remove();
-  }, [mapboxAccessToken, initialViewState, mapStyle, dataSourceUrl]);
-  
+  }, []);
 
   const flyToLocation = (longitude, latitude) => {
     if (mapRef.current) {
@@ -104,7 +119,7 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
     }
   }, [searchTerm, mapboxAccessToken]);
 
-  return (
+return (
     <>
       <style>
         {`
@@ -115,7 +130,6 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
       </style>
       <div ref={mapContainerRef} style={{ width: '100%', height: '100vh' }} />
     </>
-  );
-};
+  );};
 
 export default Map;
