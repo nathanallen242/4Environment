@@ -5,18 +5,6 @@ import icon from './assets/icon.png';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 function App() {
-  // const [apiData, setApiData] = useState(null);
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:3000/fetch-docs')
-  //     .then(response => {
-  //       setApiData(response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error("Failed to fetch API data:", error);
-  //     });
-  // }, []);
-
   const [searchTerm, setSearchTerm] = useState('')
 
   return (

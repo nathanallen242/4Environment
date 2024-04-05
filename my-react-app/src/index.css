@@ -76,6 +76,11 @@ button:focus-visible {
   height: 100vh;
 }
 
+.mapboxgl-popup-close-button {
+  outline: none;
+}
+
+
 .navbar {
   background-color: rgba(255, 255, 255, 0);
   position: absolute; 
@@ -97,6 +102,13 @@ button:focus-visible {
 
 .navbar .brand:hover {
   color: #007bff; /* Text color on hover */
+}
+
+/* .mapboxgl-popup {
+  background-color: #f9f9f9; /* Light background for contrast with red */
+  border-radius: 8px;
+  border: 1px solid #FF0000; /* Red border to match the outlines */
+  animation: fadeInAnimation 0.4s ease-out forwards; /* Example fade-in animation */
 }
 
 /* Fade-in animation */
