@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 
-const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
+const Map = ({ mapboxAccessToken, initialViewState, mapStyle, dataSourceUrl }) => {
   const mapContainerRef = useRef(null);
 
   useEffect(() => {
@@ -14,7 +14,8 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
     });
 
     map.on('load', () => {
-      fetch('https://nathanallen242.github.io/4Environment/data-collection/data/json/data.geojson')
+      // Use the API_URL environment variable to fetch the GeoJSON data
+      fetch(dataSourceUrl)
         .then(response => response.json())
         .then(data => {
           map.addSource('polygonData', {
@@ -23,8 +24,7 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
           });
 
           // Layer for the fill color
-          map.addLayer(
-            {
+          map.addLayer({
             id: 'geojsonFill',
             type: 'fill',
             source: 'polygonData',
@@ -47,7 +47,7 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
             source: 'polygonData',
             layout: {},
             paint: {
-              'line-color': '#000000', // Red color for lines
+              'line-color': '#000000', // Color for lines
               'line-width': 0.1,
             },
           });
@@ -73,9 +73,9 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle }) => {
     });
 
     return () => map.remove();
-  }, [mapboxAccessToken, initialViewState, mapStyle]);
+  }, [mapboxAccessToken, initialViewState, mapStyle, dataSourceUrl]);
 
-return (
+  return (
     <>
       <style>
         {`
@@ -86,6 +86,7 @@ return (
       </style>
       <div ref={mapContainerRef} style={{ width: '100%', height: '100vh' }} />
     </>
-  );};
+  );
+};
 
 export default Map;
