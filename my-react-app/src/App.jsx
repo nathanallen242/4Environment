@@ -19,7 +19,7 @@ function App() {
     <div className='mapbox'>
       <div className='navbar'>
         <img src={icon} style={{ width: '40px', height: '40px' }} alt="Icon"/>
-        <SearchBox/>
+        <SearchBox setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
         {/* Dropdown for selecting a county */}
         <div style={{ backgroundColor: 'transparent', color: 'black', paddingLeft: 20 }}>
           <select id="county-select" onChange={handleCountyChange} value={county}>
@@ -41,6 +41,9 @@ function App() {
         }}
         dataSourceUrl={dataSourceUrl}
       />
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+    />
     </div>
   );
 }
