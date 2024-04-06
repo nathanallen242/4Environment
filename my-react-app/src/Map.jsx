@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 
-const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSearchTerm }) => {
+const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSearchTerm, county, setCounty }) => {
 
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
+  const [geojsonData, setGeojsonData] = useState(null); // State to hold the original GeoJSON data
 
   useEffect(() => {
     
@@ -39,6 +40,7 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
       fetch('https://nathanallen242.github.io/4Environment/data-collection/data/json/data.geojson')
         .then(response => response.json())
         .then(data => {
+          setGeojsonData(data)
           map.addSource('polygonData', {
             type: 'geojson',
             data: data,
@@ -83,10 +85,22 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
             new mapboxgl.Popup()
               .setLngLat([coordinates.lng, coordinates.lat]) // Set the popup at the click location
               .setHTML(`<div style="max-width: 180px; word-wrap: break-word; color: black; text-align: left;">
-              <p><strong>County Name:</strong> ${properties.County}</p>
-              <p><strong>Low Income:</strong> ${properties.LowIncomeTracts ? 'Yes' : 'No'}</p>
+              <p><strong>County:</strong> ${properties.County}, <strong>State:</strong> ${properties.State}</p>
+              <p><strong>Census Tract: </strong>  ${properties.CensusTract}</p>
+              <p><strong>Population (2010):</strong> ${properties.POP2010}</p>
+              <p><strong>Occupied Housing Units:</strong> ${properties.OHU2010}</p>
               <p><strong>Poverty Rate:</strong> ${properties.PovertyRate}%</p>
               <p><strong>Median Family Income:</strong> $${properties.MedianFamilyIncome}</p>
+              <p><strong>Low-Income Tracts:</strong> ${properties.LowIncomeTracts ? 'Yes' : 'No'}</p>
+              <p><strong>Food Desert Status:</strong> ${properties.LILATracts_1And10 ? '1 mile urban/10 miles rural' : (properties.LILATracts_halfAnd10 ? '1/2 mile urban/10 miles rural' : 'N/A')}</p>
+              <p><strong>SNAP Benefits Housing Units:</strong> ${properties.TractSNAP}</p>
+              <hr>
+      <p><strong>Demographics:</strong></p>
+      <p><strong>White:</strong> ${properties.TractWhite} (${((properties.TractWhite / properties.POP2010) * 100).toFixed(2)}%)</p>
+      <p><strong>Black or African American:</strong> ${properties.TractBlack} (${((properties.TractBlack / properties.POP2010) * 100).toFixed(2)}%)</p>
+      <p><strong>Hispanic or Latino:</strong> ${properties.TractHispanic} (${((properties.TractHispanic / properties.POP2010) * 100).toFixed(2)}%)</p>
+      <p><strong>Asian:</strong> ${properties.TractAsian} (${((properties.TractAsian / properties.POP2010) * 100).toFixed(2)}%)</p>
+      <p><strong>Other Races:</strong> ${properties.TractOMultir} (${((properties.TractOMultir / properties.POP2010) * 100).toFixed(2)}%)</p>
             </div>`)
                 .addTo(map);
           });          
@@ -119,6 +133,36 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
     }
   }, [searchTerm, mapboxAccessToken]);
 
+
+  useEffect(() => {
+    // This checks if geojsonData is loaded and if a county is selected, or "default" is chosen
+    if (geojsonData && county && mapRef.current) {
+      let filteredData;
+      if (county === "All") {
+        // If "default" is selected, use the original geojsonData without filtering
+        filteredData = geojsonData;
+      } else {
+        // Otherwise, filter the geojsonData for the selected county
+        filteredData = {
+          ...geojsonData,
+          features: geojsonData.features.filter(feature => feature.properties.County === county),
+        };
+      }
+      updateMapData(filteredData);
+    }
+  }, [county, geojsonData]);
+
+  const updateMapData = (data) => {
+    if (mapRef.current.getSource('polygonData')) {
+      mapRef.current.getSource('polygonData').setData(data);
+    } else if (mapRef.current.isStyleLoaded()) { // Ensure the map style is loaded before adding source and layers
+      mapRef.current.addSource('polygonData', {
+        type: 'geojson',
+        data: data,
+      });
+      // Add layers here
+    }
+  };
 return (
     <>
       <style>
