@@ -3,12 +3,33 @@ import React from 'react';
 import icon from './assets/icon.png';
 import yap1image from './assets/yap1image.jpeg'
 import yap2image from './assets/yap2image.jpg'
+import { useEffect,useState } from 'react';
 
 
 function AboutMe() {
+  
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+
+    const handleScroll = () => {
+      if (document.getElementsByClassName('aboutme')[0].scrollTop > 5) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    }
+  
+    document.getElementsByClassName('aboutme')[0].addEventListener('scroll', handleScroll, {passive: true});
+  
+    return () => {
+      document.getElementsByClassName('aboutme')[0].removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div className='aboutme'>
-      <div className='aboutmenavbar'>
+      <div className={`aboutmenavbar ${scrolled ? 'scrolled' : ''}`}>
         <a href="/">
             <img 
               src={icon} 
