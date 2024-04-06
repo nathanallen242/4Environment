@@ -6,12 +6,13 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
+  const [county, setCounty] = useState('Hillsborough')
 
   return (
     <div className='mapbox'>
       <div className='navbar'>
         <img src={icon} style={{ width: '40px', height: '40px' }}></img>
-        <SearchBox setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+        <SearchBox setSearchTerm={setSearchTerm} searchTerm={searchTerm} county={county} setCounty={setCounty}/>
       </div>
       <Map
         mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
@@ -22,6 +23,8 @@ function App() {
         }}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
+        county={county}
+        setCounty={setCounty}
     />
     </div>
   );
