@@ -134,3 +134,59 @@ button:focus-visible {
 .icon:hover{
   cursor: pointer;
 }
+
+.aboutme{
+  background-color: #F5F5F5;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  font-family: "American Typewriter", sans-serif;
+  font-size: 20px;
+  overflow-y: scroll;
+}
+
+.aboutmenavbar{
+  background-color: rgb(247, 241, 231);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 25px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.yap1{
+  display: flex;
+  gap: 60px;
+  padding: 80px;
+  font-size: 17px;
+}
+
+.yap1 img{
+  height: 450px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5); 
+}
+
+
+.yap2{
+  display: flex;
+  gap: 60px;
+  padding: 80px;
+  font-size: 17px;
+}
+
+.yap2 img{
+  height: 300px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5); 
+}
+
+.yap3{
+  display: flex;
+  gap: 60px;
+  padding: 80px;
+  font-size: 17px;
+}
+
