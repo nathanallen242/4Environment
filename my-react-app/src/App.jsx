@@ -11,7 +11,14 @@ function App() {
   return (
     <div className='mapbox'>
       <div className='navbar'>
-        <img src={icon} style={{ width: '40px', height: '40px' }}></img>
+        <a href="/about">
+          <img 
+            src={icon} 
+            style={{ width: '40px', height: '40px' }} 
+            className='icon'
+            alt="About Page"
+          />
+        </a>
         <SearchBox setSearchTerm={setSearchTerm} searchTerm={searchTerm} county={county} setCounty={setCounty}/>
       </div>
       <Map
