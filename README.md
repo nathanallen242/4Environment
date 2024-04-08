@@ -1,3 +1,4 @@
+![Example Image](./my-react-app/public/mainpage.png)
 
 # livability
 
