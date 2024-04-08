@@ -7,6 +7,8 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
   const mapRef = useRef(null);
   const [geojsonData, setGeojsonData] = useState(null); // State to hold the original GeoJSON data
 
+  console.log(selectedYear)
+
   useEffect(() => {
     
     mapboxgl.accessToken = mapboxAccessToken;
@@ -92,7 +94,7 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
     });
 
     return () => map.remove();
-  }, [selectedYear]);
+  }, []);
 
   const flyToLocation = (longitude, latitude) => {
     if (mapRef.current) {
@@ -146,6 +148,20 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
       // Add layers here
     }
   };
+
+  useEffect(() => {
+    fetch(`https://nathanallen242.github.io/4Environment/data-collection/data/json/fl_${selectedYear}.geojson`)
+      .then(response => response.json())
+      .then(data => {
+        setGeojsonData(data);
+        if (mapRef.current.getSource('polygonData')) {
+          mapRef.current.getSource('polygonData').setData(data);
+        }
+      })
+      .catch(error => console.error('Error loading the GeoJSON data: ', error));
+  }, [selectedYear]); // Dependency on selectedYear to fetch new data
+
+
 return (
     <>
       <style>

@@ -19,9 +19,9 @@ const Dropdown = ({ setSelectedYear }) => {
 
   return (
     <select style={dropdownStyle} onChange={handleYearChange}>
-      <option value="2010">2010</option>
-      <option value="2015">2015</option>
       <option value="2019">2019</option>
+      <option value="2015">2015</option>
+      <option value="2010">2010</option>
     </select>
   );
 };

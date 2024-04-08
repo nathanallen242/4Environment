@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Map from './Map';
 import SearchBox from './Search';
 import Dropdown from './Dropdown';
