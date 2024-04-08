@@ -178,12 +178,21 @@ button:focus-visible {
 }
 
 
-.yap2{
-  display: flex;
-  gap: 60px;
+.yap2 {
+  display: block; /* Enables flexbox layout */
+  align-items: flex-start; /* Aligns items to the start, keeping the text aligned at the top */
+  justify-content: space-between; /* Spaces the text and image */
+  flex-wrap: wrap; /* Allows items to wrap if not enough space */
+  gap: 20px; /* Optional: Adds some space between the text and the image */
   padding: 80px;
   font-size: 17px;
 }
+
+.yap2 .image-box {
+  margin-left: auto; /* Pushes the image to the right */
+  flex-shrink: 0; /* Prevents the image from shrinking */
+}
+
 
 .yap2 img{
   height: 300px;
