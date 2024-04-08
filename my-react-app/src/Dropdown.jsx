@@ -1,25 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-const Dropdown = ({ setGeojsonData }) => {
-  const [selectedYear, setSelectedYear] = useState('2019');
+const Dropdown = ({ setSelectedYear }) => {
 
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value);
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`https://nathanallen242.github.io/4Environment/data-collection/data/json/data_${selectedYear}.geojson`);
-        const data = await response.json();
-        setGeojsonData(data);
-      } catch (error) {
-        console.error('Error fetching GeoJSON data:', error);
-      }
-    };
-
-    fetchData();
-  }, [selectedYear, setGeojsonData]);
 
   const dropdownStyle = {
     padding: '10px',
@@ -33,7 +18,7 @@ const Dropdown = ({ setGeojsonData }) => {
   };
 
   return (
-    <select style={dropdownStyle} value={selectedYear} onChange={handleYearChange}>
+    <select style={dropdownStyle} onChange={handleYearChange}>
       <option value="2010">2010</option>
       <option value="2015">2015</option>
       <option value="2019">2019</option>

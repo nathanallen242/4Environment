@@ -8,7 +8,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [county, setCounty] = useState('Hillsborough')
-  const [geojsonData, setGeojsonData] = useState(null);
+  const [selectedYear, setSelectedYear] = useState('2019');
 
   return (
     <div className='mapbox'>
@@ -22,7 +22,7 @@ function App() {
           />
         </a>
         <SearchBox setSearchTerm={setSearchTerm} searchTerm={searchTerm} county={county} setCounty={setCounty}/>
-        <Dropdown setGeojsonData={setGeojsonData} />
+        <Dropdown setSelectedYear={setSelectedYear} />
       </div>
       <Map
         mapboxAccessToken={import.meta.env.VITE_MAPBOX_TOKEN}
@@ -35,7 +35,7 @@ function App() {
         setSearchTerm={setSearchTerm}
         county={county}
         setCounty={setCounty}
-        geojsonData={geojsonData}
+        selectedYear={selectedYear}
     />
     </div>
   );
