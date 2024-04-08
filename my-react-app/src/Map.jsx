@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 
-const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSearchTerm, county, setCounty }) => {
+const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSearchTerm, county, setCounty, geojsonData }) => {
 
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
@@ -19,19 +19,19 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
     
     mapRef.current = map
 
-    map.on('load', () => {
-      fetch('https://nathanallen242.github.io/4Environment/data-collection/data/json/data.geojson')
-        .then(response => response.json())
-        .then(data => {
-          setGeojsonData(data)
+    const loadGeoJSONData = async () => {
+      try {
+        const response = await fetch(`https://nathanallen242.github.io/4Environment/data-collection/data/json/fl_${selectedYear}.geojson`);
+        const data = await response.json();
+
+        map.on('load', () => {
           map.addSource('polygonData', {
             type: 'geojson',
             data: data,
           });
 
           // Layer for the fill color
-          map.addLayer(
-            {
+          map.addLayer({
             id: 'geojsonFill',
             type: 'fill',
             source: 'polygonData',
@@ -39,12 +39,12 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
             paint: {
               'fill-color': [
                 'case',
-                ['==', ['get', 'LA1and10'], 0], '#32CD32', 
+                ['==', ['get', 'LA1and10'], 0], '#32CD32',
                 ['==', ['get', 'LA1and10'], 1], '#FF5733',
                 '#000000'
               ],
               'fill-opacity': 0.2,
-            }            
+            }
           });
 
           // Layer for the boundary lines
@@ -54,45 +54,48 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
             source: 'polygonData',
             layout: {},
             paint: {
-              'line-color': '#000000', // Red color for lines
+              'line-color': '#000000',
               'line-width': 0.1,
             },
           });
 
           // Adding interactivity for displaying properties
           map.on('click', 'geojsonFill', (e) => {
-            const properties = e.features[0].properties; // Assuming properties exist
-            const coordinates = e.lngLat; // Get coordinates for the popup from the click event
-          
-            // Ensure the popup is positioned at the click coordinates
+            const properties = e.features[0].properties;
+            const coordinates = e.lngLat;
+
             new mapboxgl.Popup()
-              .setLngLat([coordinates.lng, coordinates.lat]) // Set the popup at the click location
+              .setLngLat([coordinates.lng, coordinates.lat])
               .setHTML(`<div style="max-width: 180px; word-wrap: break-word; color: black; text-align: left;">
               <p><strong>County:</strong> ${properties.County}, <strong>State:</strong> ${properties.State}</p>
               <p><strong>Census Tract: </strong>  ${properties.CensusTract}</p>
-              <p><strong>Population (2010):</strong> ${properties.POP2010}</p>
-              <p><strong>Occupied Housing Units:</strong> ${properties.OHU2010}</p>
+              <p><strong>Population (${selectedYear || '2019'}):</strong> ${properties['POP' + (selectedYear || '2019')]}</p>
+              <p><strong>Occupied Housing Units:</strong> ${properties['OHU' + (selectedYear || '2019')]}</p>
               <p><strong>Poverty Rate:</strong> ${properties.PovertyRate}%</p>
               <p><strong>Median Family Income:</strong> $${properties.MedianFamilyIncome}</p>
               <p><strong>Low-Income Tracts:</strong> ${properties.LowIncomeTracts ? 'Yes' : 'No'}</p>
-              <p><strong>Food Desert Status:</strong> ${properties.LILATracts_1And10 ? '1 mile urban/10 miles rural' : (properties.LILATracts_halfAnd10 ? '1/2 mile urban/10 miles rural' : 'N/A')}</p>
-              <p><strong>SNAP Benefits Housing Units:</strong> ${properties.TractSNAP}</p>
+              <p><strong>Food Desert Status:</strong> ${properties['LILATracts_1And10'] ? '1 mile urban/10 miles rural' : (properties['LILATracts_halfAnd10'] ? '1/2 mile urban/10 miles rural' : 'N/A')}</p>
+              <p><strong>SNAP Benefits Housing Units:</strong> ${properties['TractSNAP' + (selectedYear || '2019')]}</p>
               <hr>
-      <p><strong>Demographics:</strong></p>
-      <p><strong>White:</strong> ${properties.TractWhite} (${((properties.TractWhite / properties.POP2010) * 100).toFixed(2)}%)</p>
-      <p><strong>Black or African American:</strong> ${properties.TractBlack} (${((properties.TractBlack / properties.POP2010) * 100).toFixed(2)}%)</p>
-      <p><strong>Hispanic or Latino:</strong> ${properties.TractHispanic} (${((properties.TractHispanic / properties.POP2010) * 100).toFixed(2)}%)</p>
-      <p><strong>Asian:</strong> ${properties.TractAsian} (${((properties.TractAsian / properties.POP2010) * 100).toFixed(2)}%)</p>
-      <p><strong>Other Races:</strong> ${properties.TractOMultir} (${((properties.TractOMultir / properties.POP2010) * 100).toFixed(2)}%)</p>
+              <p><strong>Demographics:</strong></p>
+              <p><strong>White:</strong> ${properties['TractWhite' + (selectedYear || '2019')]} (${((properties['TractWhite' + (selectedYear || '2019')] / properties['POP' + (selectedYear || '2019')]) * 100).toFixed(2)}%)</p>
+              <p><strong>Black or African American:</strong> ${properties['TractBlack' + (selectedYear || '2019')]} (${((properties['TractBlack' + (selectedYear || '2019')] / properties['POP' + (selectedYear || '2019')]) * 100).toFixed(2)}%)</p>
+              <p><strong>Hispanic or Latino:</strong> ${properties['TractHispanic' + (selectedYear || '2019')]} (${((properties['TractHispanic' + (selectedYear || '2019')] / properties['POP' + (selectedYear || '2019')]) * 100).toFixed(2)}%)</p>
+              <p><strong>Asian:</strong> ${properties['TractAsian' + (selectedYear || '2019')]} (${((properties['TractAsian' + (selectedYear || '2019')] / properties['POP' + (selectedYear || '2019')]) * 100).toFixed(2)}%)</p>
+              <p><strong>Other Races:</strong> ${properties['TractOMultir' + (selectedYear || '2019')]} (${((properties['TractOMultir' + (selectedYear || '2019')] / properties['POP' + (selectedYear || '2019')]) * 100).toFixed(2)}%)</p>
             </div>`)
-                .addTo(map);
-          });          
-        })
-        .catch(error => console.error('Error loading the GeoJSON data: ', error));
-    });
+              .addTo(map);
+          });
+        });
+      } catch (error) {
+        console.error('Error loading the GeoJSON data: ', error);
+      }
+    };
+
+    loadGeoJSONData();
 
     return () => map.remove();
-  }, []);
+  }, [mapboxAccessToken, initialViewState, mapStyle, selectedYear]);
 
   const flyToLocation = (longitude, latitude) => {
     if (mapRef.current) {
