@@ -1,5 +1,5 @@
 
-# IDH3350 - How to Save the Environment
+# livability
 
 ## Project Overview
 
