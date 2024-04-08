@@ -44,7 +44,7 @@ npm run dev
 - [Kaggle Dataset](https://www.kaggle.com/datasets/tcrammond/food-access-and-food-deserts)
 - [Food Access Research Atlas](https://www.ers.usda.gov/data-products/food-access-research-atlas/)
 
-### What's Next
+## What's Next
 * Expanding support to all states within the U.S.
 * Statistic descriptions
 * LSTM Model Predictions of Food Desert Expansion within the U.S.
