@@ -42,7 +42,7 @@ npm run dev
 
 - GeoJson data and historical census tract information related to food deserts were obtained from public datasets available on Kaggle and the Food Access Research Atlas.
 - [Kaggle Dataset](https://www.kaggle.com/datasets/tcrammond/food-access-and-food-deserts)
-- [Food Access Researh Atlas](https://www.ers.usda.gov/data-products/food-access-research-atlas/)
+- [Food Access Research Atlas](https://www.ers.usda.gov/data-products/food-access-research-atlas/)
 
 ## Contributors
 
