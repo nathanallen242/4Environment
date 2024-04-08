@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
+import Sidebar from './SideBar';
 
 const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSearchTerm, county, setCounty, selectedYear }) => {
 
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
   const [geojsonData, setGeojsonData] = useState(null); // State to hold the original GeoJSON data
+  const [selectedFeature, setSelectedFeature] = useState(null); // Step 2: State for selected feature data
 
   console.log(selectedYear)
 
@@ -62,33 +64,29 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
           });
 
           // Adding interactivity for displaying properties
-          map.on('click', 'geojsonFill', (e) => {
-            const properties = e.features[0].properties; // Assuming properties exist
-            const coordinates = e.lngLat; // Get coordinates for the popup from the click event
-          
-            // Ensure the popup is positioned at the click coordinates
-            new mapboxgl.Popup()
-              .setLngLat([coordinates.lng, coordinates.lat]) // Set the popup at the click location
-              .setHTML(`<div style="max-width: 180px; word-wrap: break-word; color: black; text-align: left;">
+       // Inside your useEffect where the map is initialized and event listeners are set
+        map.on('click', 'geojsonFill', (e) => {
+          const properties = e.features[0].properties;
+          const coordinates = e.lngLat;
+
+          const popup = new mapboxgl.Popup()
+            .setLngLat([coordinates.lng, coordinates.lat])
+            .setHTML(`<div style="max-width: 180px; word-wrap: break-word; color: black; text-align: left;">
               <p><strong>County:</strong> ${properties.County}, <strong>State:</strong> ${properties.State}</p>
-              <p><strong>Census Tract: </strong>  ${properties.CensusTract}</p>
-              <p><strong>Population (2010):</strong> ${properties.POP2010}</p>
-              <p><strong>Occupied Housing Units:</strong> ${properties.OHU2010}</p>
+              <p><strong>Census Tract: </strong> ${properties.CensusTract}</p>
               <p><strong>Poverty Rate:</strong> ${properties.PovertyRate}%</p>
-              <p><strong>Median Family Income:</strong> $${properties.MedianFamilyIncome}</p>
-              <p><strong>Low-Income Tracts:</strong> ${properties.LowIncomeTracts ? 'Yes' : 'No'}</p>
               <p><strong>Food Desert Status:</strong> ${properties.LILATracts_1And10 ? '1 mile urban/10 miles rural' : (properties.LILATracts_halfAnd10 ? '1/2 mile urban/10 miles rural' : 'N/A')}</p>
-              <p><strong>SNAP Benefits Housing Units:</strong> ${properties.TractSNAP}</p>
-              <hr>
-      <p><strong>Demographics:</strong></p>
-      <p><strong>White:</strong> ${properties.TractWhite} (${((properties.TractWhite / properties.POP2010) * 100).toFixed(2)}%)</p>
-      <p><strong>Black or African American:</strong> ${properties.TractBlack} (${((properties.TractBlack / properties.POP2010) * 100).toFixed(2)}%)</p>
-      <p><strong>Hispanic or Latino:</strong> ${properties.TractHispanic} (${((properties.TractHispanic / properties.POP2010) * 100).toFixed(2)}%)</p>
-      <p><strong>Asian:</strong> ${properties.TractAsian} (${((properties.TractAsian / properties.POP2010) * 100).toFixed(2)}%)</p>
-      <p><strong>Other Races:</strong> ${properties.TractOMultir} (${((properties.TractOMultir / properties.POP2010) * 100).toFixed(2)}%)</p>
             </div>`)
-                .addTo(map);
-          });          
+            .addTo(map);
+
+          setSelectedFeature(properties);
+
+          // Listen for the popup close event
+          popup.on('close', () => {
+            setSelectedFeature(null); // Reset selected feature when popup is closed
+          });
+        });
+         
         })
         .catch(error => console.error('Error loading the GeoJSON data: ', error));
     });
@@ -172,6 +170,8 @@ return (
         `}
       </style>
       <div ref={mapContainerRef} style={{ width: '100%', height: '100vh' }} />
+      <Sidebar selectedFeature={selectedFeature} />
+
     </>
   );};
 
