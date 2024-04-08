@@ -1,6 +1,7 @@
 // In AboutMe.jsx
 import React from 'react';
 import icon from './assets/icon.png';
+import logo from './assets/removed.png'
 import yap1image from './assets/yap1image.jpeg'
 import yap2image from './assets/yap2image.jpg'
 import { useEffect,useState } from 'react';
@@ -38,7 +39,12 @@ function AboutMe() {
               alt="About Page"
             />
         </a>
-        Livability
+        <img 
+        src={logo} 
+        style={{ width: '85px', height: '85px' }} 
+        className='logo'
+        alt="About Page"
+        />
       </div>
       <div className='yap1'>
         <img
