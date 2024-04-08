@@ -211,3 +211,7 @@ button:focus-visible {
   font-size: 17px;
 }
 
+.mapboxgl-popup-close-button:focus {
+  outline: none !important;
+  border: none !important;
+}

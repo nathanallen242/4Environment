@@ -72,7 +72,8 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
           const popup = new mapboxgl.Popup()
             .setLngLat([coordinates.lng, coordinates.lat])
             .setHTML(`<div style="max-width: 180px; word-wrap: break-word; color: black; text-align: left;">
-              <p><strong>County:</strong> ${properties.County}, <strong>State:</strong> ${properties.State}</p>
+              <p><strong>County:</strong> ${properties.County}</p>
+              <p><strong>State:</strong> ${properties.State}</p>
               <p><strong>Census Tract: </strong> ${properties.CensusTract}</p>
               <p><strong>Poverty Rate:</strong> ${properties.PovertyRate}%</p>
               <p><strong>Food Desert Status:</strong> ${properties.LILATracts_1And10 ? '1 mile urban/10 miles rural' : (properties.LILATracts_halfAnd10 ? '1/2 mile urban/10 miles rural' : 'N/A')}</p>
