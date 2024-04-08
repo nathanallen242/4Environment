@@ -19,23 +19,6 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
     
     mapRef.current = map
 
-    // if (searchTerm) {
-    //   mapboxAccessToken = import.meta.env.VITE_MAPBOX_TOKEN
-    //   fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchTerm)}.json?access_token=${mapboxAccessToken}`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //       const [longitude, latitude] = data.features[0].center;
-
-    //       map.flyTo({
-    //         center: [longitude, latitude],
-    //         essential: true, 
-    //         zoom: 10,
-    //       });
-
-    //     })
-    //     .catch(error => console.error('Error geocoding location: ', error));
-    // }
-
     map.on('load', () => {
       fetch('https://nathanallen242.github.io/4Environment/data-collection/data/json/data.geojson')
         .then(response => response.json())
