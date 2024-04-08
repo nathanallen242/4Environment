@@ -50,6 +50,7 @@ npm run dev
 - Moyosoreoluwa Ayoade
 - Nathan Allen
 
-### Special Thanks
-
-We extend our gratitude to all those who contributed data, knowledge, and resources towards the realization of this project.
+### What's Next
+* Expanding support to all states within the U.S.
+* Statistic descriptions
+* LSTM Model Predictions of Food Desert Expansion within the U.S.
