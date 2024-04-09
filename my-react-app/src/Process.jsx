@@ -23,22 +23,7 @@ const Process = () => {
   }, [control, inView]);
 
   return (
-    <motion.div ref={ref} variants={componentVariant} initial="hidden" animate={control} className="research-component">
-      <h2 style={{ marginBottom: '2rem', textAlign: 'center' }}>What can you do to help?</h2>
-      <div className="image-container">
-        <div className="image-item">
-          <img src={educateImage} alt="Educate" />
-          <p className="centered-text">Educate</p>
-        </div>
-        <div className="image-item">
-          <img src={supportImage} alt="Support" />
-          <p className="centered-text">Support</p>
-        </div>
-        <div className="image-item">
-          <img src={volunteerImage} alt="Volunteer" />
-          <p className="centered-text">Volunteer</p>
-        </div>
-      </div>
+    <motion.div ref={ref} variants={componentVariant} initial="hidden" animate={control} className="">
     </motion.div>
   );
 };

@@ -234,10 +234,6 @@ button:focus-visible {
   height: inherit;
   font-size: large;
 }
-/* 
-.research-info li{
-  list-style-type: none;
-} */
 
 .research-header {
   font-size: 40px;
@@ -256,16 +252,18 @@ button:focus-visible {
 
 .image-container {
   display: flex;
-  justify-content: start;
-  align-self: center;
-  gap: 2rem;
+  justify-content: center; /* Centers items horizontally */
+  align-items: center; /* Centers items vertically */
+  flex-wrap: wrap; /* Allows items to wrap into the next line */
+  gap: 20px; /* Adds space between items */
 }
 
 .image-item {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column; /* Stacks img and p elements vertically */
+  align-items: center; /* Centers content of .image-item vertically */
 }
+
 
 .centered-text {
   text-align: center;

@@ -36,7 +36,7 @@ const Why = () => {
     <div className="research-header-container" style={{}}>
       <h2 className="research-header">Why should you care?</h2>
     </div>
-    <div className='research-bulletpoints'>
+    <div className='research-bulletpoints' style={{ paddingRight: '50px' }}>
         <div>
         Our system helps identify areas in Florida where access to fresh, nutritious food is limited. In these food deserts, residents often rely on unhealthy, processed options, causing higher rates of obesity and chronic diseases. By targeting these areas, communities and policymakers can implement strategies to improve access to healthy food, ultimately improving public health outcomes and reducing healthcare costs.
         </div>

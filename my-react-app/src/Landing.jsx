@@ -14,7 +14,7 @@ const Landing = () => {
             4000,
             'Our mission focuses on: promoting sustainable food systems',
             4000,
-            () =
+            () => 'Our mission focuses on: creating community gardens',
           ]}
           wrapper="h1"
           cursor

@@ -37,7 +37,7 @@ const Research = () => {
       <div className="research-image-container" style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
         {/* Wrap the img element with an a tag */}
         <a href='https://digitalcommons.unf.edu/fphr/vol15/iss1/11/' target="_blank" rel="noopener noreferrer">
-          <img src={researchImage} alt="Research" />
+          <img src={researchImage} alt="Research" style={{paddingLeft: '50px'}}/>
         </a>
       </div>
       <div className="research-info">
