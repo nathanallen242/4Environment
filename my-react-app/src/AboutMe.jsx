@@ -4,6 +4,7 @@ import logo from './assets/removed.png';
 import yap1image from './assets/yap1image.jpeg';
 import Research from './Research';
 import Process from './Process';
+import Why from './Why';
 import { TypeAnimation } from 'react-type-animation';
 
 
@@ -92,6 +93,9 @@ function AboutMe() {
       </div>
       </section>
       </div>
+      <section style={{backgroundColor: '#f5f5f5'}}>
+        <Why />
+      </section>
       <section style={{backgroundColor: '#f5f5f5'}}>
         <Research />
       </section>

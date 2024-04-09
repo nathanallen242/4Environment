@@ -23,26 +23,21 @@ const Process = () => {
 
   return (
     <motion.div
-      ref={ref}
-      variants={componentVariant}
-      initial="hidden"
-      animate={control}
-      className="research-component"
-      style={{ display: 'flex', alignItems: 'center', padding: '20px' }}
-    >
-      <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-        <img src={researchImage} alt="Research" style={{ maxWidth: '80%', height: 'auto' }} />
-      </div>
-      <div style={{ flex: 1, paddingLeft: '20px' }}>
-        {/* Adjusted for larger font and right alignment */}
-        <h2 style={{ fontSize: '24px', textAlign: 'right', color: 'black' }}>Research Insights</h2>
-        <ul style={{ textAlign: 'right', color: 'black' }}>
-          <li>Impact of climate change on local wildlife</li>
-          <li>Technological advances in sustainable farming</li>
-          <li>Community engagement in environmental conservation</li>
-        </ul>
-      </div>
-    </motion.div>
+  ref={ref}
+  variants={componentVariant}
+  initial="hidden"
+  animate={control}
+  className="research-component"
+>
+  <div className="research-image-container" style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+    <img src={researchImage} alt="Research" />
+  </div>
+  <div className="research-info">
+    <div className="research-header-container" style={{}}>
+      <h2 className="research-header">How can you help?</h2>
+    </div>
+  </div>
+</motion.div>
   );
 };
 
