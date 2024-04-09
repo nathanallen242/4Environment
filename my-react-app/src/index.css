@@ -170,7 +170,6 @@ button:focus-visible {
   border: none !important;
 }
 
-// Yap
 .aboutme {
   display: flex;
   flex-direction: column;
@@ -226,17 +225,26 @@ button:focus-visible {
 }
 
 .research-info {
-  flex: 1;
   padding-left: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  color: black;
+  height: inherit;
+  font-size: large;
 }
+/* 
+.research-info li{
+  list-style-type: none;
+} */
 
 .research-header {
   font-size: 40px;
   font-weight: bold;
   color: black;
   font-family: Arial, sans-serif; /* You can choose any sans-serif font you prefer */
+  text-align: center;
 }
 
 .research-bulletpoints {
