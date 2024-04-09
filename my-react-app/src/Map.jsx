@@ -27,14 +27,15 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
         .then(data => {
           setGeojsonData(data);
           if (mapRef.current.getSource('polygonData')) {
-        mapRef.current.getSource('polygonData').setData(data);
-      }
-        else {
-          map.addSource('polygonData', {
-            type: 'geojson',
-            data: data,
-          });
-        }
+            mapRef.current.getSource('polygonData').setData(data);
+          }
+            else {
+              map.addSource('polygonData', {
+                type: 'geojson',
+                data: data,
+              });
+            }
+
           // Layer for the fill color
           map.addLayer(
             {
