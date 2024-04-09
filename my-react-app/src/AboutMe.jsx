@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import icon from './assets/icon.png';
 import logo from './assets/removed.png';
 import yap1image from './assets/yap1image.jpeg';
+import Research from './Research';
+import Process from './Process';
+import Landing from './Landing';
 import { TypeAnimation } from 'react-type-animation';
+
+const contentComponents = [
+  { Component: Landing, key: 'landing' },
+  { Component: Research, key: 'research' },
+  { Component: Process, key: 'process' },
+  // Add more as needed, ensure each has a unique 'key'
+];
+
+const buttonStyle = {
+  
+}
 
 function AboutMe() {
   const [scrolled, setScrolled] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0); // Current content index
+  const CurrentComponent = contentComponents[currentIndex];
   
 
   useEffect(() => {
@@ -24,23 +41,41 @@ function AboutMe() {
     };
   }, []);
 
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 0));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex < contentComponents.length - 1 ? prevIndex + 1 : prevIndex));
+  };
+
   return (
     <div className="aboutme">
       <div className={`aboutmenavbar ${scrolled ? 'scrolled' : ''}`}>
-        <a href="/">
-          <img src={icon} style={{ width: '40px', height: '40px' }} alt="Home" />
+      <a href="/">
+            <img 
+              src={icon} 
+              style={{ width: '40px', height: '40px' }} 
+              className='icon'
+              alt="About Page"
+            />
         </a>
-        <img src={logo} style={{ width: '85px', height: '85px' }} alt="Logo" />
+        <img 
+        src={logo} 
+        style={{ width: '85px', height: '85px' }} 
+        className='logo'
+        alt="About Page"
+        />
         <a
-          target="_blank"
-          href="https://github.com/nathanallen242/4Environment"
-          rel="noopener noreferrer"
+          target='_blank'
+          href='https://github.com/nathanallen242/4Environment'
+          rel='noopener noreferrer'
           style={{
             position: 'absolute',
-            right: '0',
-            top: '0',
-            marginRight: '32px',
-            marginTop: '16px',
+            right: '0',/* Aligns the link to the right */
+            top: '0', /* Adjusts vertical position */
+            marginRight: '32px', /* Space from the right edge */
+            marginTop: '16px' /* Space from the top */
           }}
         >
           <svg
@@ -53,67 +88,40 @@ function AboutMe() {
           </svg>
         </a>
       </div>
-      <section className="content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="typewriter-container" style={{ marginBottom: '10px' }}>
-        <TypeAnimation
-          sequence={[
-            'Our mission focuses on: addressing food deserts in Florida',
-            4000,
-            'Our mission focuses on: ensuring equitable access to nutrition',
-            4000,
-            'Our mission focuses on: promoting sustainable food systems',
-            4000,
-            () => console.log('Animation sequence finished'),
-          ]}
-          wrapper="h1"
-          cursor
-          repeat={Infinity}
-          style={{ 
-            maxWidth: '800px', 
-            fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', // Tailwind-like font stack
-            fontWeight: 'bold', // Makes the font thick and bolded
-            paddingBottom: '150px'
-          }}
-        />
-        </div>
-        <div style={{ paddingTop: '275px',position: 'fixed', textAlign: 'center', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-          <img
-            src={yap1image}
-            alt="Yap 1"
-            style={{
-              paddingTop: '5px',
-              borderRadius: '20px',
-              maxWidth: '100%',
-              boxShadow: '4px 4px 4px rgba(0, 0, 0, 0.5)',
-              display: 'block',
-              margin: '0 auto', // Ensure the image is centered
-            }}
-          />
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
-            <button aria-label="Previous" style={{
-                background: 'none',
-                border: 'none',
-                fontSize: '24px',
-                marginRight: '40px',
-                cursor: 'pointer',
-                padding: '10px',
-                color: 'green', // Green color for the arrow
-              }}>
-              &#8592;
-            </button>
-            <button aria-label="Next" style={{
-                background: 'none',
-                border: 'none',
-                fontSize: '24px',
-                cursor: 'pointer',
-                padding: '10px',
-                color: 'green', // Green color for the arrow
-              }}>
-              &#8594;
-            </button>
-          </div>
-        </div>
-      </section>
+      <AnimatePresence mode='wait'>
+        <motion.div
+          key={contentComponents[currentIndex].key}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {React.createElement(contentComponents[currentIndex].Component)}
+        </motion.div>
+      </AnimatePresence>
+      <div style={{ position: 'fixed', bottom: '20px', width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <button onClick={handlePrevious} aria-label="Previous" style={{
+          background: 'none',
+          border: 'none',
+          fontSize: '24px',
+          // marginRight: '40px',
+          cursor: 'pointer',
+          padding: '10px',
+          color: 'green', // Apply green color for the arrow
+        }}>
+          &#8592;
+        </button>
+        <button onClick={handleNext} aria-label="Next" style={{
+          background: 'none',
+          border: 'none',
+          fontSize: '24px',
+          cursor: 'pointer',
+          padding: '10px',
+          color: 'green', // Apply green color for the arrow
+        }}>
+          &#8594;
+        </button>
+      </div>
     </div>
   );
 }
