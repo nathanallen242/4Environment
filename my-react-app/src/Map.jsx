@@ -9,8 +9,6 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
   const [geojsonData, setGeojsonData] = useState(null); // State to hold the original GeoJSON data
   const [selectedFeature, setSelectedFeature] = useState(null); // Step 2: State for selected feature data
 
-  console.log(selectedYear)
-
   useEffect(() => {
     
     mapboxgl.accessToken = mapboxAccessToken;

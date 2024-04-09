@@ -145,7 +145,6 @@ button:focus-visible {
   font-family: "American Typewriter", sans-serif;
   font-size: 20px;
   overflow-y: scroll;
-  align-items: center;
 }
 
 .aboutmenavbar{
@@ -165,53 +164,76 @@ button:focus-visible {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.yap1{
-  display: flex;
-  gap: 60px;
-  padding: 80px;
-  font-size: 17px;
-}
-
-.yap1 img{
-  height: 450px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5); 
-}
-
-
-.yap2 {
-  display: flex; 
-  flex-direction: row;
-  align-items: flex-start; 
-  justify-content: space-between; 
-  gap: 20px;
-  padding: 80px;
-  font-size: 17px;
-}
-
-.yap2 a {
-}
-
-/* .yap2 .image-box {
-  margin-left: auto;
-  flex-shrink: 0; 
-} */
-
-
-.yap2 img{
-  height: 400px;
-  width: 400px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5); 
-  object-fit: cover;
-}
-
-.yap3{
-  display: flex;
-  gap: 60px;
-  padding: 80px;
-  font-size: 17px;
-}
-
 .mapboxgl-popup-close-button:focus {
   outline: none !important;
   border: none !important;
+}
+
+// Yap
+.aboutme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflowY: 'hidden';
+  height: '100vh';
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.typewriter-container {
+  margin-left: 20px;
+  padding: 25px;
+}
+
+.typewriter-container h1 {
+  font-size: 2.90rem;
+  font-weight: bold;
+  font-family: "American Typewriter", sans-serif;
+  color: green;
+  white-space: normal;
+  word-wrap: normal;
+}
+
+.typewriter-animation {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.page-content {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  display: none; /* Hide by default */
+}
+
+.page-content.active {
+  opacity: 1;
+  transform: translateY(0);
+  display: block; /* Show active page */
+}
+
+.navigation button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  color: green;
+}
+
+.page-content {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  display: none; /* Hide by default */
+}
+
+.page-content.active {
+  opacity: 1;
+  transform: translateY(0);
+  display: block; /* Show active page */
 }

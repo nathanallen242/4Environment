@@ -1,93 +1,121 @@
-// In AboutMe.jsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import icon from './assets/icon.png';
-import logo from './assets/removed.png'
-import yap1image from './assets/yap1image.jpeg'
-import yap2image from './assets/yap2image.jpg'
-import { useEffect,useState } from 'react';
-
+import logo from './assets/removed.png';
+import yap1image from './assets/yap1image.jpeg';
+import { TypeAnimation } from 'react-type-animation';
 
 function AboutMe() {
+  const [scrolled, setScrolled] = useState(false);
   
-  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-
     const handleScroll = () => {
-      if (document.getElementsByClassName('aboutme')[0].scrollTop > 5) {
+      const element = document.getElementsByClassName('aboutme')[0];
+      if (element.scrollTop > 5) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
-    }
-  
-    document.getElementsByClassName('aboutme')[0].addEventListener('scroll', handleScroll, {passive: true});
-  
+    };
+    const aboutMeElement = document.getElementsByClassName('aboutme')[0];
+    aboutMeElement.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
-      document.getElementsByClassName('aboutme')[0].removeEventListener('scroll', handleScroll);
+      aboutMeElement.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
-    <div className='aboutme'>
+    <div className="aboutme">
       <div className={`aboutmenavbar ${scrolled ? 'scrolled' : ''}`}>
         <a href="/">
-            <img 
-              src={icon} 
-              style={{ width: '40px', height: '40px' }} 
-              className='icon'
-              alt="About Page"
-            />
+          <img src={icon} style={{ width: '40px', height: '40px' }} alt="Home" />
         </a>
-        <img 
-        src={logo} 
-        style={{ width: '85px', height: '85px' }} 
-        className='logo'
-        alt="About Page"
-        />
+        <img src={logo} style={{ width: '85px', height: '85px' }} alt="Logo" />
+        <a
+          target="_blank"
+          href="https://github.com/nathanallen242/4Environment"
+          rel="noopener noreferrer"
+          style={{
+            position: 'absolute',
+            right: '0',
+            top: '0',
+            marginRight: '32px',
+            marginTop: '16px',
+          }}
+        >
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+          >
+            <path d='M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z' />
+          </svg>
+        </a>
       </div>
-      <div className='yap1'>
-        <img
-          src={yap1image}
+      <section className="content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="typewriter-container" style={{ marginBottom: '10px' }}>
+        <TypeAnimation
+          sequence={[
+            'Our mission focuses on: addressing food deserts in Florida',
+            4000,
+            'Our mission focuses on: ensuring equitable access to nutrition',
+            4000,
+            'Our mission focuses on: promoting sustainable food systems',
+            4000,
+            () => console.log('Animation sequence finished'),
+          ]}
+          wrapper="h1"
+          cursor
+          repeat={Infinity}
+          style={{ 
+            maxWidth: '800px', 
+            fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', // Tailwind-like font stack
+            fontWeight: 'bold', // Makes the font thick and bolded
+            paddingBottom: '150px'
+          }}
         />
-        Our mission focuses on addressing food deserts in Florida to ensure equitable access to nutritious and culturally relevant food for all, acknowledging that a well-nourished population is foundational to societal progress.<br></br><br></br>
-        By tackling this issue, we also aim to mitigate climate change impacts through promoting sustainable food systems that reduce environmental degradation and encourage responsible production and consumption patterns.<br></br><br></br>
-        This dual approach not only aims to enhance community livability by ensuring food security but also contributes to the global effort in combating climate change by fostering environmentally friendly food practices.
-      </div>
-
-      <div 
-      style={{ fontSize: '30px', textAlign: 'center' }}
-      >Our Development Process</div>
-
-      <div className='yap2'>
-        <div>
-        Our development process began with the collection of GEOJSON data, which accurately represents the state of Florida and all its counties. This data is crucial as it enables us to depict the lines on the map as polygonal coordinates, forming precise shapes or boundaries around each county. To enrich our dataset, we integrated this static data with historical information on Food Deserts across the US, sourced from the <a style={{display: 'inline'}}href="https://www.ers.usda.gov/data-products/food-access-research-atlas/">Food Access Research Atlas</a><br></br>This integration resulted in the creation of a comprehensive static JSON file. This file melds food access characteristics for each census tract, as recorded in 2019, with the polygonal coordinates delineating each census tract's boundaries. <br/><br/>
-      To visualize this amalgamated data, we employed MapBox GL, which seamlessly supports our existing file and facilitates the display of pertinent information for each census tract. Our next steps in the development process include the implementation of multi-state support to broaden our project's scope. Furthermore, we aim to enhance our data filtering capabilities, allowing users to sort information based on various conditions such as poverty rates, racial demographics, and proximity to resources, measured by distances of 1, 5, or 10 miles, across both rural and urban settings.
         </div>
-        <div className='image-box'>
+        <div style={{ paddingTop: '275px',position: 'fixed', textAlign: 'center', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
           <img
-            src={yap2image}
+            src={yap1image}
+            alt="Yap 1"
+            style={{
+              paddingTop: '5px',
+              borderRadius: '20px',
+              maxWidth: '100%',
+              boxShadow: '4px 4px 4px rgba(0, 0, 0, 0.5)',
+              display: 'block',
+              margin: '0 auto', // Ensure the image is centered
+            }}
           />
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
+            <button aria-label="Previous" style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '24px',
+                marginRight: '40px',
+                cursor: 'pointer',
+                padding: '10px',
+                color: 'green', // Green color for the arrow
+              }}>
+              &#8592;
+            </button>
+            <button aria-label="Next" style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '24px',
+                cursor: 'pointer',
+                padding: '10px',
+                color: 'green', // Green color for the arrow
+              }}>
+              &#8594;
+            </button>
+          </div>
         </div>
-      </div>
-
-      <div 
-      style={{ fontSize: '30px', textAlign: 'center' }}
-      >Why should you care?</div>
-
-      <div className='yap3'>
-        <div>
-        Our system helps identify areas in Florida where access to fresh, nutritious food is limited. In these food deserts, residents often rely on unhealthy, processed options, causing higher rates of obesity and chronic diseases. By targeting these areas, communities and policymakers can implement strategies to improve access to healthy food, ultimately improving public health outcomes and reducing healthcare costs.
-        </div>
-        <div>
-        Residents of food deserts often face higher food costs due to limited choices and need to travel further to find affordable groceries. This financial strain can burden people intensely. By identifying food deserts, communities can work on solutions to make healthy food more affordable and accessible, helping residents stretch their budgets further and improve their overall quality of life.
-        </div>
-        <div>
-        Ensuring equal access to healthy and affordable food is essential for promoting social equity and addressing disparities in our societies. By addressing food access issues in underserved communities, we can work towards creating a more just and inclusive society where all individuals have the opportunity to lead healthy and sustainable lives.
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
 
-export default AboutMe; // Make sure this line is present
+export default AboutMe;
