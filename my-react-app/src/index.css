@@ -256,7 +256,8 @@ button:focus-visible {
 
 .image-container {
   display: flex;
-  justify-content: center;
+  justify-content: start;
+  align-self: center;
   gap: 2rem;
 }
 

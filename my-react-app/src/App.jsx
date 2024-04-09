@@ -7,7 +7,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [county, setCounty] = useState('Hillsborough')
+  const [county, setCounty] = useState('All')
   const [selectedYear, setSelectedYear] = useState('2019');
 
   return (
