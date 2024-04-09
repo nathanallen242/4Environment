@@ -1,57 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import icon from './assets/icon.png';
 import logo from './assets/removed.png';
 import yap1image from './assets/yap1image.jpeg';
 import Research from './Research';
 import Process from './Process';
-import Landing from './Landing';
 import { TypeAnimation } from 'react-type-animation';
 
-const contentComponents = [
-  { Component: Landing, key: 'landing' },
-  { Component: Research, key: 'research' },
-  { Component: Process, key: 'process' },
-  // Add more as needed, ensure each has a unique 'key'
-];
-
-const buttonStyle = {
-  
-}
 
 function AboutMe() {
   const [scrolled, setScrolled] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0); // Current content index
-  const CurrentComponent = contentComponents[currentIndex];
-  
 
   useEffect(() => {
     const handleScroll = () => {
-      const element = document.getElementsByClassName('aboutme')[0];
-      if (element.scrollTop > 5) {
+      if (document.getElementsByClassName('aboutme')[0].scrollTop > 5) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
-    };
-    const aboutMeElement = document.getElementsByClassName('aboutme')[0];
-    aboutMeElement.addEventListener('scroll', handleScroll, { passive: true });
+    }
+    document.getElementsByClassName('aboutme')[0].addEventListener('scroll', handleScroll, {passive: true});
     return () => {
-      aboutMeElement.removeEventListener('scroll', handleScroll);
+      document.getElementsByClassName('aboutme')[0].removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  const handlePrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 0));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex < contentComponents.length - 1 ? prevIndex + 1 : prevIndex));
-  };
 
   return (
-    <div className="aboutme">
-      <div className={`aboutmenavbar ${scrolled ? 'scrolled' : ''}`}>
+    <>
+    <div className="aboutme" style={{ }}>
+        <div className="aboutmenavbar">
       <a href="/">
             <img 
               src={icon} 
@@ -88,41 +65,40 @@ function AboutMe() {
           </svg>
         </a>
       </div>
-      <AnimatePresence mode='wait'>
-        <motion.div
-          key={contentComponents[currentIndex].key}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {React.createElement(contentComponents[currentIndex].Component)}
-        </motion.div>
-      </AnimatePresence>
-      <div style={{ position: 'fixed', bottom: '20px', width: '100%', display: 'flex', justifyContent: 'center' }}>
-        <button onClick={handlePrevious} aria-label="Previous" style={{
-          background: 'none',
-          border: 'none',
-          fontSize: '24px',
-          // marginRight: '40px',
-          cursor: 'pointer',
-          padding: '10px',
-          color: 'green', // Apply green color for the arrow
-        }}>
-          &#8592;
-        </button>
-        <button onClick={handleNext} aria-label="Next" style={{
-          background: 'none',
-          border: 'none',
-          fontSize: '24px',
-          cursor: 'pointer',
-          padding: '10px',
-          color: 'green', // Apply green color for the arrow
-        }}>
-          &#8594;
-        </button>
+      <section className="content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="typewriter-container" style={{ marginBottom: '10px' }}>
+        <TypeAnimation
+          sequence={[
+            'Our mission focuses on: addressing food deserts in Florida',
+            4000,
+            'Our mission focuses on: ensuring equitable access to nutrition',
+            4000,
+            'Our mission focuses on: promoting sustainable food systems',
+            4000,
+          ]}
+          wrapper="h1"
+          cursor
+          repeat={Infinity}
+          style={{
+            maxWidth: '800px', 
+            fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"', 
+            fontWeight: 'bold',
+            paddingBottom: '150px'
+          }}
+        />
       </div>
-    </div>
+      <div className="image-container" style={{ marginTop: '125px', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
+            <img src={yap1image} alt="Yap 1" style={{ maxWidth: '100%', borderRadius: '20px', boxShadow: '4px 4px 4px rgba(0, 0, 0, 0.5)' }} />
+      </div>
+      </section>
+      </div>
+      <section style={{backgroundColor: '#f5f5f5'}}>
+        <Research />
+      </section>
+      <section style={{backgroundColor: '#f5f5f5'}}>
+        <Process />
+      </section>
+      </>
   );
 }
 

@@ -14,6 +14,7 @@ const Landing = () => {
             4000,
             'Our mission focuses on: promoting sustainable food systems',
             4000,
+            () =
           ]}
           wrapper="h1"
           cursor
@@ -26,7 +27,7 @@ const Landing = () => {
           }}
         />
       </div>
-      <div style={{ paddingTop: '175px', position: 'fixed', textAlign: 'center', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+      <div style={{ paddingTop: '275px', position: 'fixed', textAlign: 'center', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
         <img
           src={yap1image}
           alt="Yap 1"

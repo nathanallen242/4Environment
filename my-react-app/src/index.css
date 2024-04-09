@@ -31,6 +31,7 @@ a:hover {
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -149,7 +150,7 @@ button:focus-visible {
 
 .aboutmenavbar{
   height: 70px;
-  width: 95%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -187,6 +188,7 @@ button:focus-visible {
 .typewriter-container {
   margin-left: 20px;
   padding: 25px;
+  z-index: 2;
 }
 
 .typewriter-container h1 {
@@ -202,3 +204,46 @@ button:focus-visible {
   display: flex;
   justify-content: flex-start;
 }
+
+.research-component > div:first-child {
+  flex: 1;
+}
+
+.research-component > div:last-child {
+  flex: 1;
+  padding-left: 20px;
+}
+
+.research-component {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.research-component img {
+  max-width: 80%;
+  height: auto;
+}
+
+.research-info {
+  flex: 1;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.research-header {
+  font-size: 40px;
+  font-weight: bold;
+  color: black;
+  font-family: Arial, sans-serif; /* You can choose any sans-serif font you prefer */
+}
+
+.research-bulletpoints {
+  color: black;
+  text-align: left; /* Aligns the bullet points to the left */
+  font-size: 18px; /* Increase size as per your preference */
+  margin-top: 15px; /* Adds space between the header and the bullet points */
+}
+
+

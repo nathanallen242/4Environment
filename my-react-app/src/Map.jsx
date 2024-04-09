@@ -25,12 +25,16 @@ const Map = ({ mapboxAccessToken, initialViewState, mapStyle, searchTerm, setSea
       fetch(`https://nathanallen242.github.io/4Environment/data-collection/data/json/fl_${selectedYear}.geojson`)
         .then(response => response.json())
         .then(data => {
-          setGeojsonData(data)
+          setGeojsonData(data);
+          if (mapRef.current.getSource('polygonData')) {
+        mapRef.current.getSource('polygonData').setData(data);
+      }
+        else {
           map.addSource('polygonData', {
             type: 'geojson',
             data: data,
           });
-
+        }
           // Layer for the fill color
           map.addLayer(
             {
