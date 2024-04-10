@@ -44,7 +44,7 @@ const Research = () => {
         <div className="research-header-container" style={{}}>
           <h2 className="research-header">Research</h2>
         </div>
-        <ul>
+        <ul style={{fontSize: '22px'}}>
           <li><b>Food deserts</b> are areas where people experience limited access to healthy and affordable food.</li>
           <br></br>
           <li>Stores within food deserts were missing <strong>43.16%</strong> of food items.</li>

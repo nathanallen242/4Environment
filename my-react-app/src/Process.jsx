@@ -6,7 +6,7 @@ import supportImage from './assets/support.jpg';
 import volunteerImage from './assets/volunteer.jpg';
 
 const componentVariant = {
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.7} }, // Added a delay
   hidden: { opacity: 0, scale: 0.95 }
 };
 
@@ -31,9 +31,7 @@ const Process = () => {
     flexDirection: 'column', 
     alignItems: 'center',
     width: '100%',
-    paddingBottom: '200px', 
-
-
+    paddingBottom: '200px',
   };
 
   const imagesContainerStyle = {
@@ -42,7 +40,8 @@ const Process = () => {
     alignItems: 'flex-start',
     gap: '20px',
     flexWrap: 'wrap',
-    width: '100%', 
+    width: '100%',
+    padding: '50px'
   };
 
   const itemStyle = {
@@ -55,7 +54,7 @@ const Process = () => {
   };
 
   const imageStyle = {
-    width: '100%',
+    width: '80%',
     height: 'auto',
     borderRadius: '10px',
     boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
@@ -65,7 +64,7 @@ const Process = () => {
 
   const textStyle = {
     textAlign: 'center',
-    fontSize: '16px',
+    fontSize: '18px', // Increased font size
     fontWeight: 'bold',
     color: '#333',
     padding: '0 10px',
@@ -74,14 +73,13 @@ const Process = () => {
   };
 
   const titleStyle = {
-    fontSize: '40px', 
-    fontWeight: 'bold', 
-    color: 'black', 
+    fontSize: '40px',
+    fontWeight: 'bold',
+    color: 'black',
     fontFamily: 'Arial, sans-serif',
-    textAlign: 'center', 
+    textAlign: 'center',
     marginBottom: '50px',
   };
-  
 
   return (
     <motion.div ref={ref} variants={componentVariant} initial="hidden" animate={control} style={mainContainerStyle}>
@@ -91,7 +89,11 @@ const Process = () => {
           <motion.div key={index} variants={imageHoverVariant} whileHover="hover" style={itemStyle}>
             <motion.img src={image} alt={["Educate", "Support", "Volunteer"][index]} style={imageStyle} />
             <motion.div style={textStyle} whileHover={{ color: '#007bff' }}>
-              {["Educating on the importance of food security.", "Supporting local farmers and sustainable practices.", "Volunteer opportunities to directly impact communities."][index]}
+              {[
+                "Educating on the importance of food security, providing resources and knowledge to communities.",
+                "Supporting local farmers and sustainable practices, fostering an environment of growth and resilience.",
+                "Volunteering opportunities to directly impact communities, from local projects to global initiatives."
+              ][index]}
             </motion.div>
           </motion.div>
         ))}
