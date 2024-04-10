@@ -46,6 +46,7 @@ npm run dev
 - [Food Access Research Atlas](https://www.ers.usda.gov/data-products/food-access-research-atlas/)
 
 ## What's Next
+* Make Mobile-Friendly
 * Expanding support to all states within the U.S.
 * Statistic descriptions
 * LSTM Model Predictions of Food Desert Expansion within the U.S.
