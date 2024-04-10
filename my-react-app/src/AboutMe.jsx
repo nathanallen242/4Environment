@@ -99,7 +99,7 @@ function AboutMe() {
       <section style={{backgroundColor: '#f5f5f5'}}>
         <Research />
       </section>
-      <section style={{backgroundColor: '#f5f5f5', paddingTop: '100px',}}>
+      <section style={{backgroundColor: '#f5f5f5',}}>
         <Process />
       </section>
       </>
