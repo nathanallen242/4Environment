@@ -12,6 +12,8 @@ This project, **livability**, leverages advanced web technologies and data analy
 - **Filtering by County**: Focus on specific counties to understand local challenges.
 - **Demographic Insights**: Access detailed demographic information for each census tract within a county.
 
+<img src="https://github.com/user-attachments/assets/5968e83e-164f-4828-b935-d97c8b132da9" alt="IMG_0248" width="1000"/>
+
 ## Technologies & Libraries
 
 - Frontend: React
