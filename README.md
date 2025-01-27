@@ -2,6 +2,9 @@
 
 # livability
 
+<img src="https://github.com/user-attachments/assets/dbef974d-4888-4c83-9a1a-4c8c006b42e9" alt="IMG_0248" width="1000"/>
+
+
 ## Project Overview
 
 This project, **livability**, leverages advanced web technologies and data analytics to provide a dynamic visualization of food deserts across Florida over time. Using MapboxGL, React, and Python, we've created an interactive tool that merges geoJson data with historical Florida census tract information, highlighting areas with limited access to affordable and nutritious food.
